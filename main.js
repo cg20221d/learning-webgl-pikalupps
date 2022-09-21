@@ -74,7 +74,18 @@ function main() {
 		freeze = !freeze
 	}
 
+	// papan ketuk
+	function onKeydown(event){
+		freeze = !freeze
+	}
+
+	function onKeyup(event){
+		freeze = !freeze
+	}
+
 	document.addEventListener("click", onMouseClick)
+	document.addEventListener("keyup", onKeyup)
+	document.addEventListener("keydown", onKeydown)
 
 	function render(){
 		gl.clearColor(0.1, 0.1, 0.3, 1.0) // rgb
