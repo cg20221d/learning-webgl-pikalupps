@@ -51,6 +51,7 @@ function main() {
 
 	// variabel lokal
 	var theta = 0.0
+	var freeze = false
 
 	// variabel pointer ke GLSL
 	var uTheta = gl.getUniformLocation(shaderProgram, "uTheta")
@@ -68,13 +69,25 @@ function main() {
 		2 * Float32Array.BYTES_PER_ELEMENT)
 	gl.enableVertexAttribArray(aColor)
 
+	// Grafika Interaktif
+	function onMouseClick(event){
+		freeze = !freeze
+	}
+
+	document.addEventListener("click", onMouseClick)
+
 	function render(){
 		gl.clearColor(0.1, 0.1, 0.3, 1.0) // rgb
 		gl.clear(gl.COLOR_BUFFER_BIT)
-		theta += 0.1
-		gl.uniform1f(uTheta, theta)
+		
+		if(!freeze){
+			theta += 0.1
+			gl.uniform1f(uTheta, theta)
+		}
+		
 		gl.drawArrays(gl.TRIANGLE_FAN, 0, 4)
+		requestAnimationFrame(render)
 	}
 
-	setInterval(render, 1000/60)
+	requestAnimationFrame(render)
 }
